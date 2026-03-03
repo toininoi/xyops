@@ -1,5 +1,17 @@
 # xyOps Changelog
 
+## Version v1.0.15
+
+> March 2, 2026
+
+- [`0c44957`](https://github.com/pixlcore/xyops/commit/0c449578daa03eba668e7bc14c5ff003eab556c8): Version 1.0.15
+	- Bump pixl-request to v2.6.1 for new connectTimeout, and retryDelayMax features.
+	- Bump pixl-xyapp to v2.1.23 for new getKeyLabel and getShortKetLabel functions.
+- [`74a7c42`](https://github.com/pixlcore/xyops/commit/74a7c42d727c5cb10591e7b3079a80ce5089abb3): Add new internal api_finish_job API, used by xySat (replaces finishing jobs over the websocket, which isn't guaranteed).
+- [`17307b7`](https://github.com/pixlcore/xyops/commit/17307b70e250016f1f050fb7a16a9e8a5c8876d6): WebSocket API: Broadcast server features to satellites.
+- [`ef829be`](https://github.com/pixlcore/xyops/commit/ef829beaba6fa911ca09c02d7040ceb8e7e7d7b1): Keyboard Trigger UI: Use new getShortKeyLabel in pixl-xyapp.  Also fix capitalization in getKeyLabel.
+- [`f70776d`](https://github.com/pixlcore/xyops/commit/f70776dd2ec1622eb4ea4923bb7ba90310bf451d): Event UI: Fix highlight color of "Run Now..." which should be green to match the ellipsis (dialog action).
+
 ## Version v1.0.14
 
 > February 28, 2026
