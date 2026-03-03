@@ -145,6 +145,7 @@ Here are descriptions of all the SSO properties:
 | `cleanup_username` | Boolean | Set this to `true` to cleanup the username received from the trusted headers.  See [Header Map](#header-map) below for details. |
 | `cleanup_full_name` | Boolean | Set this to `true` to cleanup the user's full name received from the trusted headers.  See [Header Map](#header-map) below for details. |
 | `group_role_map` | Object | Automatically assign roles to users based on groups received from the trusted headers.  See [User Groups](#user-groups) below for details. |
+| `group_role_separator` | String | Optional custom character to split up the external group roles (defaults to comma).  See [User Groups](#user-groups) below for details. |
 | `group_privilege_map` | Object | Automatically assign privileges to users based on groups received from the trusted headers.  See [User Groups](#user-groups) below for details. |
 | `replace_roles` | Boolean | Set this to `true` to replace **all** the user's roles with those mapped via `group_role_map` only.  See [User Groups](#user-groups) below for details. |
 | `replace_privileges` | Boolean | Set this to `true` to replace **all** the user's privileges with those mapped via `group_role_map` only.  See [User Groups](#user-groups) below for details. |
@@ -217,7 +218,7 @@ With `group_role_map` and `group_privilege_map` you can map your own user groups
 }
 ```
 
-In this case user `jhuckaby` is a member of two groups: `pixlcore` and `pixlcore:owners`.  Assuming you have the `x-forwarded-groups` header mapped to `groups` via the [Header Map](#header-map), here is how you could assign `pixlcore:owners` so users with this group automatically become a full administrator:
+In this case user `jhuckaby` is a member of two groups: `pixlcore` and `pixlcore:owners` (comma-delimited -- see below).  Assuming you have the `x-forwarded-groups` header mapped to `groups` via the [Header Map](#header-map), here is how you could assign `pixlcore:owners` so users with this group automatically become a full administrator:
 
 ```json
 "group_privilege_map": {
@@ -234,6 +235,8 @@ And if you have roles defined in xyOps, you can also map user groups to those, b
 ```
 
 This would apply both roles to all users in the `pixlcore` IdP group.
+
+If your IdP specifies group roles delimited with a character other than comma (e.g. pipe), use the [SSO.group_role_separator](config.md#sso-group_role_separator) property to customize it.
 
 Now, by default, these roles and privileges are applied "additively" to user records.  Meaning, they will never *remove* a role or privilege.  This is so you can manually apply your own user roles and permissions using the xyOps Admin UI, and everything plays nice.  However, if you do not want this behavior, and instead want your IdP to be the single source of truth for all user roles and privileges, set `replace_roles` and/or `replace_privileges` to true.  Those will replace **all** the roles and/or privileges with whatever we get from the IdP group map.  This sync happens on every user login and session refresh, wiping out any local changes made in xyOps.
 

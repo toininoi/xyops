@@ -1072,6 +1072,10 @@ This boolean derives a display name from an email (use local-part, replace dots 
 
 This object maps IdP group names to xyOps role IDs to auto-assign roles on login (default: `{}`).
 
+### SSO.group_role_separator
+
+Optional character for splitting the external group list (default: `,`).
+
 ### SSO.group_privilege_map
 
 This object maps IdP group names to privilege keys to auto-assign privileges on login (default: `{}`).
