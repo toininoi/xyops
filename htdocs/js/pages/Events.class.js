@@ -1708,7 +1708,8 @@ Page.Events = class Events extends Page.PageUtils {
 		
 		// massage a title out of description template (ugh)
 		var title = template.replace(/\:\s+.+$/, '').replace(/\s+\(.+$/, '');
-		var btn = '<div class="button danger" onClick="$P().prepRollback(' + idx + ')"><i class="mdi mdi-undo-variant">&nbsp;</i>Rollback...</div>';
+		var btn = '<div class="button secondary" onClick="$P().exportRevision(' + idx + ')"><i class="mdi mdi-cloud-download-outline">&nbsp;</i>Export...</div>' + 
+			'<div class="button danger" onClick="$P().prepRollback(' + idx + ')"><i class="mdi mdi-undo-variant">&nbsp;</i>Rollback...</div>';
 		if (is_cur_rev) btn = '&nbsp;';
 		var md = '';
 		
@@ -1757,6 +1758,15 @@ Page.Events = class Events extends Page.PageUtils {
 			this.rollbackData = item.event;
 			Nav.go('Events?sub=edit&id=' + this.event.id + '&rollback=1');
 		}
+	}
+	
+	exportRevision(idx) {
+		// show export dialog for specific history revision
+		var item = this.revisions[idx];
+		CodeEditor.hide();
+		Dialog.hide();
+		
+		this.do_export( item.event, "Export Revision #" + item.event.revision );
 	}
 	
 	go_history() {
@@ -1845,7 +1855,7 @@ Page.Events = class Events extends Page.PageUtils {
 		// buttons at bottom
 		html += '<div class="box_buttons">';
 			html += '<div class="button" onClick="$P().cancel_event_new()"><i class="mdi mdi-close-circle-outline">&nbsp;</i>Cancel</div>';
-			html += '<div class="button secondary" onClick="$P().do_export()"><i class="mdi mdi-cloud-download-outline">&nbsp;</i><span>Export...</span></div>';
+			html += '<div class="button secondary" onClick="$P().do_export_current()"><i class="mdi mdi-cloud-download-outline">&nbsp;</i><span>Export...</span></div>';
 			html += '<div class="button primary" id="btn_save" onClick="$P().do_new_event()"><i class="mdi mdi-floppy">&nbsp;</i>Create Event</div>';
 		html += '</div>'; // box_buttons
 		
@@ -1949,7 +1959,7 @@ Page.Events = class Events extends Page.PageUtils {
 			html += '<div class="button danger mobile_collapse" onClick="$P().show_delete_event_dialog()"><i class="mdi mdi-trash-can-outline">&nbsp;</i><span>Delete...</span></div>';
 			html += '<div class="button secondary mobile_collapse" onClick="$P().do_clone()"><i class="mdi mdi-content-copy">&nbsp;</i><span>Clone...</span></div>';
 			html += '<div class="button secondary mobile_collapse" onClick="$P().do_test_event()"><i class="mdi mdi-test-tube">&nbsp;</i><span>Test...</span></div>';
-			html += '<div class="button secondary mobile_collapse mobile_hide" onClick="$P().do_export()"><i class="mdi mdi-cloud-download-outline">&nbsp;</i><span>Export...</span></div>';
+			html += '<div class="button secondary mobile_collapse mobile_hide" onClick="$P().do_export_current()"><i class="mdi mdi-cloud-download-outline">&nbsp;</i><span>Export...</span></div>';
 			html += '<div class="button secondary mobile_collapse mobile_hide" onClick="$P().go_edit_history()"><i class="mdi mdi-history">&nbsp;</i><span>History...</span></div>';
 			html += '<div class="button save phone_collapse" id="btn_save" onClick="$P().do_save_event()"><i class="mdi mdi-floppy">&nbsp;</i><span>Save Changes</span></div>';
 		html += '</div>'; // box_buttons
@@ -1991,7 +2001,17 @@ Page.Events = class Events extends Page.PageUtils {
 		Nav.go('Events?sub=new');
 	}
 	
-	do_export() {
+	do_export_current() {
+		// show multi-export dialog for current event
+		// called from new or edit
+		app.clearError();
+		var event = this.get_event_form_json();
+		if (!event) return; // error
+		
+		this.do_export(event);
+	}
+	
+	do_export(event, custom_title) {
 		// show multi-export dialog
 		var self = this;
 		
@@ -2127,10 +2147,6 @@ Page.Events = class Events extends Page.PageUtils {
 			return final_items;
 		}; // getExportedItems
 		
-		app.clearError();
-		var event = this.get_event_form_json();
-		if (!event) return; // error
-		
 		var getExportedPayload = function() {
 			var json = {
 				type: 'xypdf',
@@ -2143,7 +2159,7 @@ Page.Events = class Events extends Page.PageUtils {
 			return payload;
 		};
 		
-		var title = this.workflow ? "Export Workflow" : "Export Event";
+		var title = custom_title || (this.workflow ? "Export Workflow" : "Export Event");
 		var btn = ['cloud-download-outline', 'Download File'];
 		
 		var html = '<div class="dialog_box_content scroll maximize">';
