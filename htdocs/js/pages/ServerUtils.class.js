@@ -1369,7 +1369,7 @@ Page.ServerUtils = class ServerUtils extends Page.PageUtils {
 		);
 		
 		// NOTE: Don't change these columns without also changing the responsive css column collapse rules in style.css
-		var cols = ['Server', 'IP Address', 'Groups', '# CPUs', 'RAM', 'OS', 'Uptime', '# Jobs', '# Alerts'];
+		var cols = ['Server', 'IP Address', 'Groups', '# CPUs', 'RAM', 'Arch', 'OS', 'xySat', 'Uptime', '# Jobs', '# Alerts'];  
 		
 		html += '<div class="box">';
 		html += '<div class="box_title">';
@@ -1446,7 +1446,9 @@ Page.ServerUtils = class ServerUtils extends Page.PageUtils {
 				self.getNiceGroupList(item.groups),
 				'<i class="mdi mdi-chip">&nbsp;</i>' + (item.info.cpu.cores || 0),
 				'<i class="mdi mdi-memory">&nbsp;</i>' + get_text_from_bytes(item.info.memory.total || 0),
+				self.getNiceArch(item.info.arch),
 				self.getNiceShortOS(item.info.os),
+				'<i class="mdi mdi-tag-text-outline">&nbsp;</i>v' + (item.info.satellite || '0.0.0'),
 				'<div id="d_vg_server_uptime_' + item.id + '">' + nice_uptime + '</div>',
 				'<div id="d_vg_server_jobs_' + item.id + '">' + nice_jobs + '</div>',
 				nice_alerts // no need for div here: alert change redraws entire table
