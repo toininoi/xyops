@@ -13,6 +13,7 @@ The following {{config.client.name}} {{display.type}} ticket has been created: *
 - **Type:** {{display.type}}
 - **Category:** {{display.category}}
 - **Status:** {{display.status}}
+- **Author:** {{display.username}}
 - **Assignees:** {{display.assignees}}
 - **Due Date:** {{display.due}}
 - **Tags:** {{display.tags}}

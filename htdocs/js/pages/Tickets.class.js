@@ -885,6 +885,7 @@ Page.Tickets = class Tickets extends Page.PageUtils {
 				id: 'fe_nt_tags',
 				options: app.tags,
 				values: ticket.tags,
+				default_icon: 'tag-outline',
 				// 'data-shrinkwrap': 1
 			})
 		});
@@ -1134,6 +1135,7 @@ Page.Tickets = class Tickets extends Page.PageUtils {
 				placeholder: 'Select tags to apply...',
 				options: app.tags,
 				values: ticket.tags,
+				default_icon: 'tag-outline',
 				'data-shrinkwrap': 1
 			}),
 			caption: 'Select tags to apply to the ticket.'
