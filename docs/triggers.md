@@ -222,7 +222,7 @@ Parameters:
 | `params` | Object | Optional | Optionally include parameter overrides for the event / plugin. |
 | `tags` | Array | Optional | Optionally include a set of [Tag.id](data.md#tag-id)s to add to the job as it starts. |
 
-The `keys` array elements should be strings, containing one or more [KeyboardEvent.code](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code) values separated by a `+`.  Examples: `ControlLeft+KeyA`, `ControlLeft+AltLeft+Space`, `MetaLeft+Digit1`.
+The `keys` array elements should be strings, containing one or more [KeyboardEvent.code](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code) values separated by a `+`.  Examples: `Control+KeyA`, `Control+Alt+Space`, `Meta+Digit1`.  Note that the `Left` and `Right` modifiers are not used.
 
 This is a special-case trigger, and thus it skips over modifiers like [Catch-Up](#catch-up), [Range](#range), [Blackout](#blackout), [Delay](#delay), [Precision](#precision), [Quiet](#quiet), and [Plugin](#plugin).
 
