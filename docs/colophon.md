@@ -11,9 +11,10 @@ We stand on the shoulders of giants.  xyOps was built using these awesome open s
 | [@xterm/addon-fit](https://www.npmjs.com/package/@xterm/addon-fit) | Addon for xterm.js to resize the terminal to fit its container. | MIT |
 | [ansi_up](https://www.npmjs.com/package/ansi_up) | Convert ANSI sequences in text to colorful HTML. | MIT |
 | [async](https://www.npmjs.com/package/async) | Higher-order functions and common patterns for asynchronous code. | MIT |
-| [bcrypt-node](https://www.npmjs.com/package/bcrypt-node) | Native JavaScript implementation of BCrypt for Node.js. | BSD-3-Clause |
+| [bcryptjs](https://www.npmjs.com/package/bcryptjs) | Optimized bcrypt in JavaScript with zero dependencies. | BSD-3-Clause |
 | [better-sqlite3](https://www.npmjs.com/package/better-sqlite3) | The fastest and simplest library for SQLite in Node.js. | MIT |
 | [canvas-confetti](https://www.npmjs.com/package/canvas-confetti) | Performant confetti animation in the browser. | ISC |
+| [clean-css](https://www.npmjs.com/package/clean-css) | A fast and efficient CSS optimizer for Node.js platform and any modern browser. | MIT |
 | [codemirror](https://www.npmjs.com/package/codemirror) | Full-featured in-browser code editor. | MIT |
 | [diff](https://www.npmjs.com/package/diff) | JavaScript text diff implementation. | BSD-3-Clause |
 | [jexl](https://www.npmjs.com/package/jexl) | Context-based expression language parser and evaluator. | MIT |
