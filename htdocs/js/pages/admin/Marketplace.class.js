@@ -515,6 +515,7 @@ Page.Marketplace = class Marketplace extends Page.PageUtils {
 		// fix all local hash links to point back to remote repo
 		var args = this.args;
 		var anchor = args.anchor || '';
+		var repo_base_url = this.product.repo_url || `https://github.com/${this.product.id}`;
 		
 		if (!elem) elem = this.div;
 		else if (typeof(elem) == 'string') elem = $(elem);
@@ -532,6 +533,9 @@ Page.Marketplace = class Marketplace extends Page.PageUtils {
 			var href = $this.attr('href');
 			if (href.match(/^\#/)) {
 				$this.attr({ 'href': '#' + Nav.loc + '/' + href.replace(/\#/, '') });
+			}
+			else if (href.match(/^[\w\-\.]+$/)) {
+				$this.attr({ 'href': repo_base_url + '/blob/main/' + href });
 			}
 		} );
 	}
