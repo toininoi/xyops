@@ -48,7 +48,7 @@ Page.Marketplace = class Marketplace extends Page.PageUtils {
 		if (!args.limit) args.limit = config.items_per_page;
 		
 		app.setWindowTitle('Marketplace');
-		app.setHeaderTitle( '<i class="mdi mdi-cart-outline">&nbsp;</i>Marketplace' );
+		app.setHeaderTitle( '<i class="mdi mdi-cart-variant">&nbsp;</i>Marketplace' );
 		
 		var html = '';
 		html += '<div class="box" style="border:none;">';
@@ -310,7 +310,7 @@ Page.Marketplace = class Marketplace extends Page.PageUtils {
 			
 			var combo = `<div class="product_result" data-product="${product.id}" onClick="$P().doViewProduct(this)" style="background-image:url(${logo_url}">`;
 				combo += `<div class="product_title ellip">${product.title}</div>`;
-				combo += `<div class="product_desc ellip">${product.description}</div>`;
+				combo += `<div class="product_desc ellip">${ inline_marked(product.description) }</div>`;
 			combo += `</div>`;
 			
 			return [
@@ -398,8 +398,8 @@ Page.Marketplace = class Marketplace extends Page.PageUtils {
 		
 		app.setWindowTitle( product.title );
 		app.setHeaderNav([
-			{ icon: 'cart-outline', loc: '#Marketplace?sub=search', title: 'Marketplace' },
-			{ icon: type_def.icon, loc: '#' + Nav.loc, title: product.title }
+			{ icon: 'cart-variant', loc: '#Marketplace?sub=search', title: 'Marketplace' },
+			{ icon: type_def.icon, title: product.title }
 		]);
 		
 		var install_btn_text = installed ? `Upgrade ${ucfirst(product.type)}...` : `Install ${ucfirst(product.type)}...`;

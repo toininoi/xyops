@@ -831,6 +831,7 @@ body.dark .dialog .markdown-body table tr th {
 	margin-right: 3px;
 	/* font-size: 13px; */
 	font-size: 0.85em;
+	word-break: break-word;
 }
 body.dark .markdown-body p code, body.dark .markdown-body td code, body.dark .markdown-body li code, .fr_caption code {
 	background-color: var(--border-color);
