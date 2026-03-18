@@ -1300,6 +1300,17 @@ div.td_big {
 	height: 21px;
 }
 
+.data_grid > ul.grid_row.cat_sep > div {
+	grid-column: 1 / -1; 
+	padding-top: 20px;
+	color: var(--label-color);
+	font-style: italic;
+	cursor: default;
+}
+.data_grid > ul.grid_row.cat_sep:has(div:hover) > div {
+	background: transparent !important;
+}
+
 .data_grid > ul.grid_row > div {
 	background-color: transparent;
 	transition: 0.5s ease background-color;

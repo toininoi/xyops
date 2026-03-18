@@ -3582,11 +3582,13 @@ Page.Base = class Base extends Page {
 		for (var idx = 0; idx < len; idx++) {
 			var row = disp_rows[idx];
 			var tds = opts.callback(row, idx);
+			if (tds.insertBefore) html += tds.insertBefore;
 			html += '<ul class="grid_row ' + (tds.className || '') + '">';
 			for (var idy = 0, ley = tds.length; idy < ley; idy++) {
 				html += '<div' + ((bold_idx == idy) ? ' style="font-weight:bold"' : '') + '>' + tds[idy] + '</div>';
 			}
 			html += '</ul>';
+			if (tds.insertAfter) html += tds.insertAfter;
 		} // foreach row
 		
 		if (!disp_rows.length) {

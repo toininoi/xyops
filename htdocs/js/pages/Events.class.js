@@ -317,7 +317,10 @@ Page.Events = class Events extends Page.PageUtils {
 			column_labels: ['Event Title', 'Category', 'Tags', 'Plugin', 'Targets', 'Triggers', 'Status', 'Actions']
 		};
 		
-		html += this.getSortableTable( this.events, table_opts, function(item) {
+		var last_item = null;
+		
+		html += this.getSortableTable( this.events, table_opts, function(item, sort_idx) {
+			if (!sort_idx) last_item = null;
 			var classes = [];
 			var cat = cat_map[ item.category ] || { title: item.category };
 			
@@ -342,6 +345,36 @@ Page.Events = class Events extends Page.PageUtils {
 			if (!item.enabled) classes.push('disabled');
 			if (cat.color) classes.push( 'clr_' + cat.color );
 			if (classes.length) tds.className = classes.join(' ');
+			
+			// decorate changes for certain columns
+			switch (table_opts.sort_by) {
+				case 'cat_sort':
+					if (!last_item || (last_item.cat_sort != item.cat_sort)) {
+						tds.insertBefore = `<ul class="grid_row cat_sep"><div>${ self.getNiceCategory(item.category, false) }</div></ul>`;
+					}
+				break;
+				
+				case 'tag_sort':
+					if (!last_item || (last_item.tag_sort != item.tag_sort)) {
+						tds.insertBefore = `<ul class="grid_row cat_sep"><div>${ self.getNiceTagList(item.tags || [], false, ', ') }</div></ul>`;
+					}
+				break;
+				
+				case 'plug_sort':
+					if (!last_item || (last_item.plug_sort != item.plug_sort)) {
+						var nice_sep = (item.plugin == '_workflow') ? '(Workflow)' : self.getNicePlugin(item.plugin, false);
+						tds.insertBefore = `<ul class="grid_row cat_sep"><div>${ nice_sep }</div></ul>`;
+					}
+				break;
+				
+				case 'target_sort':
+					if (!last_item || (last_item.target_sort != item.target_sort)) {
+						tds.insertBefore = `<ul class="grid_row cat_sep"><div>${ self.getNiceTargetList(item.targets, false) }</div></ul>`;
+					}
+				break;
+			} // switch table_opts.sort_by
+			
+			last_item = item;
 			return tds;
 		}); // getSortableTable
 		
